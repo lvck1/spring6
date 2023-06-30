@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--    setter方法注入-->
+    <bean id="book" class="com.lvck1.spring6.iocxml.di.Book">
+        <property name="bname" value="前端开发"/>
+        <property name="author" value="lvck"/>
+        <!--        <property name="others">-->
+        <!--            <null/>-->
+        <!--        </property>-->
+        <!--        <property name="others">-->
+        <!--            <value>&lt;&gt;</value>-->
+        <!--        </property>-->
+        <property name="others">
+            <value><![CDATA[
+
+            ]]></value>
+        </property>
+    </bean>
+
+    <!--构造器注入-->
+    <bean id="bookCon" class="com.lvck1.spring6.iocxml.di.Book">
+        <constructor-arg name="bname" value="Java开发"/>
+        <!--        <constructor-arg index="0" value="Java开发"></constructor-arg>-->
+        <constructor-arg name="author" value="lvck"/>
+    </bean>
+
+</beans>

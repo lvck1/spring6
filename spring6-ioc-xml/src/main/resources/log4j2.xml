@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Configuration name="ConfigTest" status="ERROR" monitorInterval="5">
+    <Properties>
+        <Property name="logDir">C:/D/JavaProjects/logs</Property>
+        <Property name="logName">spring6</Property>
+    </Properties>
+    <Appenders>
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %l - %msg%n"/>
+        </Console>
+
+        <RollingFile name="rollingFile" fileName="${logDir}/${logName}.log"
+                     filePattern="${logDir}/${logName}-%d{yyyy-MM-dd}-%i.log">
+            <PatternLayout pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %c - %msg%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1" modulate="true"/>
+                <SizeBasedTriggeringPolicy size="20MB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="100"/>
+        </RollingFile>
+
+    </Appenders>
+    <Loggers>
+        <Root level="debug">
+            <AppenderRef ref="console"/>
+            <AppenderRef ref="rollingFile"/>
+        </Root>
+    </Loggers>
+</Configuration>
