@@ -15,6 +15,7 @@
         <module>spring6-reflect</module>
         <module>lvck1-spring6</module>
         <module>spring6-aop</module>
+        <module>spring6-junit</module>
     </modules>
 
     <properties>
@@ -34,12 +35,20 @@
             <artifactId>spring-aop</artifactId>
             <version>6.0.2</version>
         </dependency>
+        <!--spring aspects依赖-->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-aspects</artifactId>
             <version>6.0.2</version>
         </dependency>
+        <!--spring 整合junit依赖-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>6.0.2</version>
+        </dependency>
 
+        <!--junit-->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
@@ -47,6 +56,13 @@
             <scope>test</scope>
         </dependency>
 
+        <!--junit4测试-->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.2</version>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
