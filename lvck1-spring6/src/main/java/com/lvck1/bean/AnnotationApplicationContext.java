@@ -1,9 +1,12 @@
 package com.lvck1.bean;
 
 import com.lvck1.anno.Bean;
+import com.lvck1.anno.Di;
+import com.lvck1.service.UserService;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.net.URLDecoder;
@@ -11,6 +14,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class AnnotationApplicationContext implements ApplicationContext {
     //创建map集合，放bean对象
@@ -31,6 +35,7 @@ public class AnnotationApplicationContext implements ApplicationContext {
         //1.把.替换成\
         try {
             String packagePath = basePackage.replaceAll("\\.", "\\\\");
+            //2.获取包的绝对路径
             Enumeration<URL> urls = Thread.currentThread().getContextClassLoader().getResources(packagePath);
             while (urls.hasMoreElements()) {
                 URL url = urls.nextElement();
@@ -45,7 +50,9 @@ public class AnnotationApplicationContext implements ApplicationContext {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        //2.获取包的绝对路径
+
+        //属性注入
+        loadDi();
     }
 
     //包扫描过程，实例化
@@ -100,7 +107,44 @@ public class AnnotationApplicationContext implements ApplicationContext {
         }
     }
 
+    private void loadDi() {
+        //实例化对象在beanFactory的map集合里面
+        //1.遍历beanFactory的map集合
+        Set<Map.Entry<Class, Object>> entries = beanFactory.entrySet();
+        for (Map.Entry<Class, Object> entry : entries) {
+            //2.获取map集合每个对象（value），每个对象属性获取到
+            Object obj = entry.getValue();
+            //获取对象Class
+            Class<?> clazz = obj.getClass();
+
+            //获取每个对象属性
+            Field[] declaredFields = clazz.getDeclaredFields();
+
+            //3.遍历得到的每个对象属性数组，得到每个属性
+            for (Field field : declaredFields) {
+                //4.判断属性上面是否有@Di注解
+                Di annotation = field.getAnnotation(Di.class);
+                if (annotation != null) {
+                    //如果私有属性，设置可以设置值
+                    field.setAccessible(true);
+
+                    //5.如果有Di注解，把对象进行设置（注入）
+                    try {
+                        field.set(obj, beanFactory.get(field.getType()));
+                    } catch (IllegalAccessException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+        }
+
+
+    }
+
     public static void main(String[] args) {
         ApplicationContext applicationContext = new AnnotationApplicationContext("com.lvck1");
+        UserService userService = (UserService) applicationContext.getBean(UserService.class);
+        System.out.println(userService);
+        userService.add();
     }
 }
