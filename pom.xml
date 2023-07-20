@@ -16,6 +16,7 @@
         <module>lvck1-spring6</module>
         <module>spring6-aop</module>
         <module>spring6-junit</module>
+        <module>spring-jdbc-tx</module>
     </modules>
 
     <properties>
@@ -57,12 +58,12 @@
         </dependency>
 
         <!--junit4测试-->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.13.2</version>
-            <scope>test</scope>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>junit</groupId>-->
+<!--            <artifactId>junit</artifactId>-->
+<!--            <version>4.13.2</version>-->
+<!--            <scope>test</scope>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
