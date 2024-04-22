@@ -1,4 +1,4 @@
-package com.lvck1.spring6.tx.dao;
+package com.lvck1.spring6.xmltx.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;

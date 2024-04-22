@@ -23,6 +23,7 @@ public class JdbcTemplateTest {
 //        Object[] params = {"东方不败", 20, "未知"};
 //        int rows = jdbcTemplate.update(sql, params);
 
+        //返回受影响的行数
         int rows = jdbcTemplate.update(sql, "林平之", 20, "未知");
         System.out.println(rows);
 
@@ -47,7 +48,7 @@ public class JdbcTemplateTest {
     //查询操作，返回对象
     @Test
     public void testSelectObject() {
-        //写法一
+        //写法一，自定义封装类
         String sql = "select * from t_emp where id = ?";
         Emp empResult = jdbcTemplate.queryForObject(sql,
                 (rs, rowNum) -> {
@@ -61,7 +62,7 @@ public class JdbcTemplateTest {
                 1);
         System.out.println(empResult);
 
-        //写法二
+        //写法二，使用已有的封装类
         empResult = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(Emp.class), 1);
         System.out.println(empResult);
     }

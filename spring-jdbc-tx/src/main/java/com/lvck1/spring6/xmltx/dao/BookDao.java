@@ -1,4 +1,4 @@
-package com.lvck1.spring6.tx.dao;
+package com.lvck1.spring6.xmltx.dao;
 
 public interface BookDao {
     //根据图书id查询图书价格

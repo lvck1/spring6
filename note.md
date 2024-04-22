@@ -12,7 +12,7 @@
 **构造器注入**
 * 字面量赋值 
 ```xml
-<properties name="" value=">
+<properties name="" value=""/>
 ```
 * 空值赋值
 ```xml
@@ -107,3 +107,7 @@ Java反射机制是在运行状态中，对于任意一个类，都能够知道�
 3. 回滚策略：设置哪些异常不回滚
 4. 隔离级别：读问题
 5. 传播行为：事务方法之间的调用，事务该如何使用
+
+七种传播行为：
+- Propagation.REQUIRED 如果有事务，就加入当前事务
+- Propagation.REQUIRED_NEW 不管有没有事务，新建一个事务
